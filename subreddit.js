@@ -12,8 +12,9 @@ function onFailure(error) {
 
 
 /**
- * @desc make a GET call to the reddit api and append
- * the results to a string
+ * @desc make a GET call to the reddit api and
+ * pass result of each post to printMessage
+ * for output
  */
 function get(subreddit) {
   var request = http.get('http://www.reddit.com/r/' + subreddit + '.json', function (response) {
