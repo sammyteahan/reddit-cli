@@ -1,9 +1,8 @@
 var http = require('http');
 
 
-
 function printMessage(subreddit, list) {
-  console.log(subreddit + ' - ' + list.data.title);
+  console.log(subreddit + ' - ' + list.data.title + ' -- https://reddit.com' + list.data.permalink);
 }
 
 function onFailure(error) {
