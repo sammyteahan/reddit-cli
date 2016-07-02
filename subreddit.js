@@ -1,8 +1,12 @@
 var http = require('http');
 
-
+/**
+ * @desc accept a rubreddit's json payload
+ * @param JSON
+ * @returns void
+ */
 function printMessage(subreddit, list) {
-  console.log(subreddit + ' - ' + list.data.title + ' -- https://reddit.com' + list.data.permalink);
+  console.log(subreddit + ' - ' + list.data.title);
 }
 
 function onFailure(error) {
@@ -16,15 +20,15 @@ function onFailure(error) {
  * for output
  */
 function get(subreddit) {
-  var request = http.get('http://www.reddit.com/r/' + subreddit + '.json', function (response) {
+  var request = http.get(`http://www.reddit.com/r/${subreddit}.json`, function (response) {
     var body = '';
-    
+
     response.on('data', function (chunk) {
       body += chunk;
     });
 
     response.on('end', function () {
-      if(response.statusCode === 200) {
+      if (response.statusCode === 200) {
         try {
           var posts = JSON.parse(body);
           posts.data.children.forEach(function (item) {
@@ -34,7 +38,7 @@ function get(subreddit) {
           onFailure(error);
         }
       } else {
-        onFailure({message: 'There was an error getting the subreddit for: ' + subreddit + '. (' + http.STATUS_CODES[response.statusCode] + ')'});
+        onFailure({message: `There was an error getting the subreddit for: ${subreddit}. (${http.STATUS_CODES[response.statusCode]})`});
       }
     });
 
@@ -44,3 +48,4 @@ function get(subreddit) {
 }
 
 module.exports.get = get;
+
