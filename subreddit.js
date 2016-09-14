@@ -1,4 +1,5 @@
 var http = require('http');
+var https = require('https');
 
 
 
@@ -17,9 +18,9 @@ function onFailure(error) {
  * for output
  */
 function get(subreddit) {
-  var request = http.get('http://www.reddit.com/r/' + subreddit + '.json', function (response) {
+  var request = https.get('https://www.reddit.com/r/' + subreddit + '.json', function (response) {
     var body = '';
-    
+
     response.on('data', function (chunk) {
       body += chunk;
     });
