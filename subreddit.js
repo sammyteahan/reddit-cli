@@ -2,7 +2,6 @@ var http = require('http');
 var https = require('https');
 
 
-
 function printMessage(subreddit, list) {
   console.log(subreddit + ' - ' + list.data.title);
 }
@@ -18,18 +17,18 @@ function onFailure(error) {
  * for output
  */
 function get(subreddit) {
-  var request = https.get('https://www.reddit.com/r/' + subreddit + '.json', function (response) {
+  var request = https.get('https://www.reddit.com/r/' + subreddit + '.json', (response) => {
     var body = '';
 
-    response.on('data', function (chunk) {
+    response.on('data', (chunk) => {
       body += chunk;
     });
 
-    response.on('end', function () {
+    response.on('end', () => {
       if(response.statusCode === 200) {
         try {
           var posts = JSON.parse(body);
-          posts.data.children.forEach(function (item) {
+          posts.data.children.forEach(item => {
             printMessage(subreddit, item);
           });
         } catch (error) {
@@ -46,3 +45,4 @@ function get(subreddit) {
 }
 
 module.exports.get = get;
+
